@@ -1,0 +1,205 @@
+#trep {
+        width: 275px;
+}
+
+body {
+        /*background-color: #dddddd;*/
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 10pt;
+}
+
+.bars {
+        background-color: #dddddd;
+        border: 1px solid #cccccc;
+}
+
+thead {
+        text-align: center;
+}
+
+.black {
+        background-color: #000000;
+        color: #000000;
+        height: 25px;
+        width: 0%;
+        vertical-align: middle;
+        white-space: nowrap;
+        border-color: #dddddd;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+}
+
+.cyan {
+        background-color: #0066CC;
+        /* SHARP MX-3070 color version */
+        /*	background-color: rgb(5, 173, 236); /* Lexmark color version */
+        color: #000000;
+        height: 25px;
+        width: 0%;
+        vertical-align: middle;
+        white-space: nowrap;
+        border-color: #dddddd;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+}
+
+.magenta {
+        background-color: #FF3366;
+        /* SHARP MX-3070 color version */
+        /*	background-color: rgb(235, 0, 139); /* Lexmark color version */
+        color: #000000;
+        height: 25px;
+        width: 0%;
+        vertical-align: middle;
+        white-space: nowrap;
+        border-color: #dddddd;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+}
+
+.yellow {
+        background-color: #ffff00;
+        /* SHARP MX-3070 color version */
+        /*	background-color: rgb(254, 221, 25); /* Lexmark color version */
+        color: #000000;
+        height: 25px;
+        width: 0%;
+        vertical-align: middle;
+        white-space: nowrap;
+        border-color: #dddddd;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+}
+
+.waste {
+        background-color: #999999;
+        /* standard color */
+        /*	background-color: rgb(0, 217, 22); /* Lexmark color */
+        color: #000000;
+        height: 25px;
+        width: 0%;
+        white-space: nowrap;
+        border-color: #dddddd;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+}
+
+.fusing_unit {
+        background-color: #ff8800;
+        /* standard color */
+        /*	background-color: rgb(0, 217, 22); /* Lexmark color */
+        color: #000000;
+        height: 25px;
+        width: 0%;
+        white-space: nowrap;
+        border-color: #dddddd;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+}
+
+div#black_dev_bar {
+        background-color: #000000;
+        color: #000000;
+        height: 25px;
+        width: 0%;
+        white-space: nowrap;
+        border-color: #dddddd;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+}
+
+div#cyan_dev_bar {
+        background-color: #0066CC;
+        color: #000000;
+        height: 25px;
+        width: 0%;
+        white-space: nowrap;
+        border-color: #dddddd;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+}
+
+div#magenta_dev_bar {
+        background-color: #FF3366;
+        color: #000000;
+        height: 25px;
+        width: 0%;
+        white-space: nowrap;
+        border-color: #dddddd;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+}
+
+div#yellow_dev_bar {
+        background-color: #ffff00;
+        color: #000000;
+        height: 25px;
+        width: 0%;
+        white-space: nowrap;
+        border-color: #dddddd;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+}
+
+
+div#black_drum_bar {
+        background-color: #000000;
+        /*	background-image: linear-gradient(#003300, #00dd33, #003300); */
+        color: #000000;
+        height: 25px;
+        width: 0%;
+        white-space: nowrap;
+        border-color: #dddddd;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+}
+
+div#cyan_drum_bar {
+        background-color: #0066CC;
+        /*	background-image: linear-gradient(#003300, #00dd33, #003300); */
+        color: #000000;
+        height: 25px;
+        width: 0%;
+        white-space: nowrap;
+        border-color: #dddddd;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+}
+
+div#magenta_drum_bar {
+        background-color: #FF3366;
+        /*	background-image: linear-gradient(#003300, #00dd33, #003300); */
+        color: #000000;
+        height: 25px;
+        width: 0%;
+        white-space: nowrap;
+        border-color: #dddddd;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+}
+
+div#yellow_drum_bar {
+        background-color: #ffff00;
+        /*	background-image: linear-gradient(#003300, #00dd33, #003300); */
+        color: #000000;
+        height: 25px;
+        width: 0%;
+        white-space: nowrap;
+        border-color: #dddddd;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+}
