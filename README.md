@@ -2,7 +2,7 @@
 
 This project was created to make managing a fleet of MFPs and printers more easily, giving meter data and current toner level data in an easy-to-read interface.
 
-![Screenshot of SNMP Meter UI](https://maninscarymask.github.com/snmp_meter/snmp_meter_ui.png)
+![Screenshot of SNMP Meter UI](/snmp_meter_ui.png)
 
 ## Data capture
 
