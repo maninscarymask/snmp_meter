@@ -2,6 +2,8 @@
 
 This project was created to make managing a fleet of MFPs and printers more easily, giving meter data and current toner level data in an easy-to-read interface.
 
+![Screenshot of SNMP Meter UI](https://maninscarymask.github.com/snmp_meter/snmp_meter_ui.png)
+
 ## Data capture
 
 The Powershell script should be run on a machine using Task Scheduler, given a reasonable executable interval.  A good rule of thumb is to use as short an interval as you can safely mitigate disaster.  An example would be 3hr intervals during workdays, such as 0600, 0900, 1200, 1500 and 1800.  Any more than that and you may get too many scans with no change in data.
