@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<title>Machine Data</title>
+	<link rel="icon" href="/favicon.ico">
+	<link rel="stylesheet" href="data.css">
+	<script src="https://cdn.plot.ly/plotly-latest.min.js">
+	</script>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Company Name SNMP</a>
+		<div class="collapse navbar-collapse" id="navbarsExample02">
+			<ul class="navbar-nav mr-auto"></ul>
+			<form onsubmit="return false;" class="form-inline my-2 my-md-0">
+				<input placeholder="Enter ID..." type="number" min="0" max="6000" id="u_input" class="form-control"
+					style="width: 100px;">
+				&nbsp;
+				<input type="submit" onclick="get_machine_data();">
+			</form>
+		</div>
+	</nav>
+	<br>
+	<div class="container-fluid">
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<!-- Machine info -->
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-3">
+							Model:
+						</div>
+						<div class="col-sm-3" id="model_output"></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							Serial:
+						</div>
+						<div class="col-sm-3" id="serial_output"></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							Asset Number:
+						</div>
+						<div class="col-sm-3" id="asset_output"></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							IP Address:
+						</div>
+						<div class="col-sm-3" id="ip_output"></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							Hardware Address:
+						</div>
+						<div class="col-sm-3" id="mac_output"></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							Firmware Version:
+						</div>
+						<div class="col-sm-3" id="firmware_output"></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							Location:
+						</div>
+						<div class="col-sm-auto" id="loc_output"></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							Latest Scan:
+						</div>
+						<div class="col-sm-3" id="scan_output"></div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-sm-4">
+							Black &amp; White Total Count:
+						</div>
+						<div class="col-sm-2" id="black_total"></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">
+							Full Color Total Count:
+						</div>
+						<div class="col-sm-2" id="color_total"></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">
+							Total Count:
+						</div>
+						<div class="col-sm-2" id="total_count"></div>
+					</div>
+				</div>
+				<br>
+				<!-- Toner bars -->
+				<div>
+					<table>
+						<thead>
+							<tr>
+								<td width="10%"></td>
+								<td width="20%">Toner</td>
+								<td width="2%"></td>
+								<td width="20%">Developer</td>
+								<td width="2%"></td>
+								<td width="20%">Drum</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Cyan</td>
+								<td class="bars">
+									<div class="cyan" id="cyan_bar"></div>
+								</td>
+								<td></td>
+								<td class="bars">
+									<div class="cyan" id="cyan_dev_bar"></div>
+								</td>
+								<td></td>
+								<td class="bars">
+									<div class="cyan" id="cyan_drum_bar"></div>
+								</td>
+							</tr>
+							<tr>
+								<td>Magenta</td>
+								<td class="bars">
+									<div class="magenta" id="magenta_bar"></div>
+								</td>
+								<td></td>
+								<td class="bars">
+									<div class="magenta" id="magenta_dev_bar"></div>
+								</td>
+								<td></td>
+								<td class="bars">
+									<div class="magenta" id="magenta_drum_bar"></div>
+								</td>
+							</tr>
+							<tr>
+								<td>Yellow</td>
+								<td class="bars">
+									<div class="yellow" id="yellow_bar"></div>
+								</td>
+								<td></td>
+								<td class="bars">
+									<div class="yellow" id="yellow_dev_bar"></div>
+								</td>
+								<td></td>
+								<td class="bars">
+									<div class="yellow" id="yellow_drum_bar"></div>
+								</td>
+							</tr>
+							<tr>
+								<td>Black</td>
+								<td class="bars">
+									<div class="black" id="black_bar"></div>
+								</td>
+								<td></td>
+								<td class="bars">
+									<div class="black" id="black_dev_bar"></div>
+								</td>
+								<td></td>
+								<td class="bars">
+									<div class="black" id="black_drum_bar"></div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<br>
+					<table>
+						<thead>
+							<tr>
+								<td width="10%"></td>
+								<td width="20%">Waste Toner</td>
+								<td width="2%"></td>
+								<td width="20%">Fuser Unit</td>
+								<td width="2%"></td>
+								<td width="20%"></td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Maintenance</td>
+								<td class="bars">
+									<div class="waste" id="waste_bar"></div>
+								</td>
+								<td></td>
+								<td class="bars">
+									<div class="fusing_unit" id="fusing_unit_bar"></div>
+								</td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<br>
+				<!-- Replaced/Near-End Status-->
+				<div>
+					<table>
+						<tr>
+							<td style="align-items: center; width: 20px">
+								<form onsubmit="return false;">
+									<label class="container"><input id="tkc" type="checkbox"
+											onclick="updatedb();"></label>
+								</form>
+							</td>
+							<td>
+								<table>
+									<tr>
+										<td id="trep">Black Toner Replaced:</td>
+										<td id="tk_date_val"></td>
+									</tr>
+									<tr>
+										<td id="trep">Black Toner Reached Near End:</td>
+										<td id="tk_ne_date_val"></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr height="5px">
+							<td></td>
+						</tr>
+						<tr>
+							<td style="align-items: center; width: 20px">
+								<form onsubmit="return false;">
+									<label class="container"><input id="tcc" type="checkbox"
+											onclick="updatedb();"></label>
+								</form>
+							</td>
+							<td>
+								<table>
+									<tr>
+										<td id="trep">Cyan Toner Replaced:</td>
+										<td id="tc_date_val"></td>
+									</tr>
+									<tr>
+										<td id="trep">Cyan Toner Reached Near End:</td>
+										<td id="tc_ne_date_val"></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr height="5px">
+							<td></td>
+						</tr>
+						<tr>
+							<td style="align-items: center; width: 20px">
+								<form onsubmit="return false;">
+									<label class="container"><input id="tmc" type="checkbox"
+											onclick="updatedb();"></label>
+								</form>
+							</td>
+							<td>
+								<table>
+									<tr>
+										<td id="trep">Magenta Toner Replaced:</td>
+										<td id="tm_date_val"></td>
+									</tr>
+									<tr>
+										<td id="trep">Magenta Toner Reached Near End:</td>
+										<td id="tm_ne_date_val"></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr height="5px">
+							<td></td>
+						</tr>
+						<tr>
+							<td style="align-items: center; width: 20px">
+								<form onsubmit="return false;">
+									<label class="container"><input id="tyc" type="checkbox"
+											onclick="updatedb();"></label>
+								</form>
+							</td>
+							<td>
+								<table>
+									<tr>
+										<td id="trep">Yellow Toner Replaced:</td>
+										<td id="ty_date_val"></td>
+									</tr>
+									<tr>
+										<td id="trep">Yellow Toner Reached Near End:</td>
+										<td id="ty_ne_date_val"></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr height="5px">
+							<td></td>
+						</tr>
+						<tr>
+							<td style="align-items: center; width: 20px">
+								<form onsubmit="return false;">
+									<label class="container"><input id="wbc" type="checkbox"
+											onclick="updatedb();"></label>
+								</form>
+							</td>
+							<td>
+								<table>
+									<tr>
+										<td id="trep">Waste Toner Replaced:</td>
+										<td id="wb_date_val"></td>
+									</tr>
+									<tr>
+										<td id="trep">Waste Toner Reached Near End:</td>
+										<td id="wb_ne_date_val"></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<!-- Usage graph-->
+				<div class="col-md-6" id="total"></div>
+			</div>
+
+			<!-- Toner, Developer, Drum and Maintenance graphs -->
+			<div class="col-md-auto">
+				<div id="toner"></div>
+				<div id="dev"></div>
+				<div id="drum"></div>
+				<div id="maint"></div>
+			</div>
+
+
+		</div>
+		<script src="data.js"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+			integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+			integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+			integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+</body>
+
+</html>
