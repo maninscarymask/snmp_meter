@@ -2,7 +2,7 @@
 
 This project was created to make managing a fleet of MFPs and printers more easily, giving meter data and current toner level data in an easy-to-read interface.
 
-![](/snmp_meter_ui.png = 250x)
+<img src="snmp_meter_ui.png" width=450px>
 
 ## Data capture
 
