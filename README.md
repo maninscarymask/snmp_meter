@@ -44,3 +44,11 @@ Each historical datapoint, such as a meter-reading or toner level, is kept in or
 - Developer graph
 - Drum Graph
 - Usage graph
+
+## Configuration
+
+In order to get this to work for you, you need to change the Powershell to point to your Firebase DB, then also set your company name.  Make sure the snmpget/snmpwalk programs are in the same folder as the script.  Add the ps1 script to Task Scheduler with a 3hr interval, then let manually start it.
+
+For the UI component, change "Company Name" and the Firebase DB link in data.js.  Change the displayed "Company Name" in the index.html file as well.
+
+Once the Powershell script has created the appropriate nodes on the Firebase DB, the UI should be able to pull the data and display it.
