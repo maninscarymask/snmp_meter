@@ -552,6 +552,508 @@ function get_machine_data() {
 		})
 }
 
+var linewidth = 3;
+
+function toner_plot(data) {
+	var key_array = Object.keys(data);
+
+	//range
+	N = 50;
+
+	var toner_c = [];
+	var toner_m = [];
+	var toner_y = [];
+	var toner_k = [];
+	var dates = key_array;
+
+	for (var i = 0; i < key_array.length; i++) {
+		toner_c.push(data[key_array[i]]["Cyan Toner"]);
+		toner_m.push(data[key_array[i]]["Magenta Toner"]);
+		toner_y.push(data[key_array[i]]["Yellow Toner"]);
+		toner_k.push(data[key_array[i]]["Black Toner"]);
+	}
+
+	//console.log(toner_c);
+	//console.log(toner_m);
+	//console.log(toner_y);
+	//console.log(toner_k);
+	//console.log(dates);
+
+	var plot_c = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: toner_c,
+		name: "Cyan Toner",
+		line: {
+			//shape: "spline",
+			color: "#0066CC",
+			width: linewidth
+		}
+	};
+
+	var plot_m = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: toner_m,
+		name: "Magenta Toner",
+		line: {
+			//shape: "spline",
+			color: "#FF3366",
+			width: linewidth
+		}
+	};
+
+	var plot_y = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: toner_y,
+		name: "Yellow Toner",
+		line: {
+			//shape: "spline",
+			color: "#FFFF00",
+			width: linewidth
+		}
+	};
+
+	var plot_k = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: toner_k,
+		name: "Black Toner",
+		line: {
+			//shape: "spline",
+			color: "#333333",
+			width: linewidth
+		}
+	};
+
+	data = [plot_k, plot_c, plot_m, plot_y];
+
+	var layout = {
+		title: "Toner",
+		autosize: false,
+		displaymodebar: false,
+		displaylogo: false,
+		dragmode: 'pan',
+		height: 300,
+		width: 600,
+		zeroline: true,
+		margin: {
+			autoexpand: false,
+			l: 25,
+			r: 25,
+			t: 50
+		},
+		xaxis: {
+			fixedrange: false
+		},
+		yaxis: {
+			fixedrange: true,
+			// we want the -3 or 100 to stay on the plot and not get trimmed at the bounds
+			range: [-7, 104]
+		},
+		showlegend: false
+	};
+
+	// scrollZoom adds the ability to select a range and zoom in on it
+	Plotly.newPlot("toner", data, layout, {
+		scrollZoom: true
+	});
+}
+
+function developer_plot(data) {
+	var key_array = Object.keys(data);
+
+	var dev_c = [];
+	var dev_m = [];
+	var dev_y = [];
+	var dev_k = [];
+	var dates = key_array;
+
+	for (var i = 0; i < key_array.length; i++) {
+		dev_c.push(data[key_array[i]]["Cyan Developer"]);
+		dev_m.push(data[key_array[i]]["Magenta Developer"]);
+		dev_y.push(data[key_array[i]]["Yellow Developer"]);
+		dev_k.push(data[key_array[i]]["Black Developer"]);
+	}
+
+	//console.log(dev_c);
+	//console.log(dev_m);
+	//console.log(dev_y);
+	//console.log(dev_k);
+	//console.log(dates);
+
+	var plot_c = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: dev_c,
+		name: "Cyan Developer",
+		line: {
+			//shape: "spline",
+			color: "#0066CC",
+			width: linewidth
+		}
+	};
+
+	var plot_m = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: dev_m,
+		name: "Magenta Developer",
+		line: {
+			//shape: "spline",
+			color: "#FF3366",
+			width: linewidth
+		}
+	};
+
+	var plot_y = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: dev_y,
+		name: "Yellow Developer",
+		line: {
+			//shape: "spline",
+			color: "#FFFF00",
+			width: linewidth
+		}
+	};
+
+	var plot_k = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: dev_k,
+		name: "Black Developer",
+		line: {
+			//shape: "spline",
+			color: "#333333",
+			width: linewidth
+		}
+	};
+
+	data = [plot_k, plot_c, plot_m, plot_y];
+
+	var layout = {
+		title: "Developer",
+		autosize: false,
+		displaymodebar: false,
+		displaylogo: false,
+		dragmode: 'pan',
+		height: 300,
+		width: 600,
+		zeroline: true,
+		margin: {
+			autoexpand: false,
+			l: 25,
+			r: 25,
+			t: 25
+		},
+		xaxis: {
+			fixedrange: false
+		},
+		yaxis: {
+			fixedrange: true,
+			// we want the -3 or 100 to stay on the plot and not get trimmed at the bounds
+			range: [-7, 104]
+		},
+		showlegend: false
+	};
+
+	Plotly.newPlot("dev", data, layout, {
+		scrollZoom: true
+	});
+}
+
+function drum_plot(data) {
+	var key_array = Object.keys(data);
+
+	var drum_c = [];
+	var drum_m = [];
+	var drum_y = [];
+	var drum_k = [];
+	var dates = key_array;
+
+	for (var i = 0; i < key_array.length; i++) {
+		drum_c.push(data[key_array[i]]["Cyan Drum"]);
+		drum_m.push(data[key_array[i]]["Magenta Drum"]);
+		drum_y.push(data[key_array[i]]["Yellow Drum"]);
+		drum_k.push(data[key_array[i]]["Black Drum"]);
+	}
+
+	//console.log(drum_c);
+	//console.log(drum_m);
+	//console.log(drum_y);
+	//console.log(drum_k);
+	//console.log(dates);
+
+	var plot_c = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: drum_c,
+		name: "Cyan Drum",
+		line: {
+			//shape: "spline",
+			color: "#0066CC",
+			width: linewidth
+		}
+	};
+
+	var plot_m = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: drum_m,
+		name: "Magenta Drum",
+		line: {
+			//shape: "spline",
+			color: "#FF3366",
+			width: linewidth
+		}
+	};
+
+	var plot_y = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: drum_y,
+		name: "Yellow Drum",
+		line: {
+			//shape: "spline",
+			color: "#FFFF00",
+			width: linewidth
+		}
+	};
+
+	var plot_k = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: drum_k,
+		name: "Black Drum",
+		line: {
+			//shape: "spline",
+			color: "#333333",
+			width: linewidth
+		}
+	};
+
+	data = [plot_k, plot_c, plot_m, plot_y];
+
+	var layout = {
+		title: "Drum",
+		autosize: false,
+		displaymodebar: false,
+		displaylogo: false,
+		dragmode: 'pan',
+		height: 300,
+		width: 600,
+		zeroline: true,
+		margin: {
+			autoexpand: false,
+			l: 25,
+			r: 25,
+			t: 25
+		},
+		xaxis: {
+			fixedrange: false
+		},
+		yaxis: {
+			fixedrange: true,
+			// we want the -3 or 100 to stay on the plot and not get trimmed at the bounds
+			range: [-7, 104]
+		},
+		showlegend: false
+	};
+
+	Plotly.newPlot("drum", data, layout, {
+		scrollZoom: true
+	});
+}
+
+function maint_plot(data) {
+	var key_array = Object.keys(data);
+
+	var waste_toner = [];
+	var fusing_unit = [];
+	var dates = key_array;
+
+	for (var i = 0; i < key_array.length; i++) {
+		waste_toner.push(data[key_array[i]]["Waste Toner"]);
+		fusing_unit.push(data[key_array[i]]["Fusing Unit"]);
+	}
+
+	//console.log(waste_toner);
+	//console.log(fusing_unit);
+	//console.log(dates);
+
+	var plot_w = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: waste_toner,
+		name: "Waste Toner",
+		line: {
+			//shape: "spline",
+			color: "#999999",
+			width: linewidth
+		}
+	};
+
+	var plot_f = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: fusing_unit,
+		name: "Fusing Unit",
+		line: {
+			//shape: "spline",
+			color: "#FF8800",
+			width: linewidth
+		}
+	};
+
+	data = [plot_w, plot_f];
+
+	var layout = {
+		title: "Waste Toner and Fusing Unit",
+		autosize: false,
+		displaymodebar: false,
+		displaylogo: false,
+		dragmode: 'pan',
+		height: 300,
+		width: 600,
+		zeroline: true,
+		margin: {
+			autoexpand: false,
+			l: 25,
+			r: 25,
+			t: 25
+		},
+		xaxis: {
+			fixedrange: false
+		},
+		yaxis: {
+			fixedrange: true,
+			// we want the -3 or 100 to stay on the plot and not get trimmed at the bounds
+			range: [-7, 104]
+		},
+		showlegend: false
+	};
+
+	Plotly.newPlot("maint", data, layout, {
+		scrollZoom: true
+	});
+}
+
+function total_plot(data) {
+	var key_array = Object.keys(data);
+
+	//range
+	N = 50;
+
+	var totalc = [];
+	var mono = [];
+	var color = [];
+	var dates = key_array;
+
+	for (var i = 0; i < key_array.length; i++) {
+		totalc.push(data[key_array[i]]["Total Count"]);
+		mono.push(data[key_array[i]]["Black & White Total Count"]);
+		color.push(data[key_array[i]]["Full Color Total Count"]);
+	}
+
+	var plot_totalc = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: totalc,
+		//fill: 'tozeroy',
+		//stackgroup: 'one',
+		name: "Total Count",
+		line: {
+			//shape: "spline",
+			color: "#00FF00",
+			width: 1
+		}
+	};
+
+	var plot_mono = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: mono,
+		fill: 'tonexty',
+		stackgroup: 'one',
+		name: "Black & White",
+		line: {
+			//shape: "spline",
+			color: "#000000",
+			width: 1
+		}
+	};
+
+	var plot_color = {
+		mode: "lines",
+		connectgaps: true,
+		x: dates,
+		y: color,
+		fill: 'tonexty',
+		stackgroup: 'one',
+		name: "Full Color",
+		line: {
+			//shape: "spline",
+			color: "#0000FF",
+			width: 1
+		}
+	};
+
+	data = [plot_mono, plot_color, plot_totalc];
+
+	var layout = {
+		title: "Usage",
+		autosize: false,
+		displaymodebar: false,
+		displaylogo: false,
+		dragmode: 'pan',
+		height: 300,
+		width: 600,
+		zeroline: true,
+		margin: {
+			autoexpand: false,
+			l: 30,
+			r: 25,
+			t: 50
+		},
+		xaxis: {
+			fixedrange: false //,
+			//			automargin: true
+		},
+		yaxis: {
+			rangemode: 'tozero',
+			tickmode: 'array',
+			autorange: true,
+			fill: 'tozeroy',
+			//			automargin: true,
+			//type: 'log'
+		},
+		showlegend: false
+	};
+
+	// scrollZoom adds the ability to select a range and zoom in on it
+	Plotly.newPlot("total", data, layout, {
+		scrollZoom: true
+	});
+}
+
 function updatedb() {
 	if (document.getElementById("tkc").checked == true) {
 		black = 1;
