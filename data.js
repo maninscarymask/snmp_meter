@@ -1,5 +1,7 @@
+// Enter your complete Firebase database name.  The sub-folder is created from the Powershell script, so just match those.
 var url = "https://xxx-xxx-xxx.firebaseio.com/Company%20Name"
 
+// This is only to prettify the output of the meter counts
 function thousands_separator(num) {
 	if (num == null) {
 		return 0;
@@ -8,6 +10,7 @@ function thousands_separator(num) {
 	}
 }
 
+// Main function that pulls all data and displays it
 function get_machine_data() {
 	// User input
 	asset = document.getElementById("u_input").value;
@@ -30,15 +33,15 @@ function get_machine_data() {
 					// Retrieve model
 					model = data["Model"];
 					document.getElementById("model_output").innerHTML = model;
-				
+
 					// Retrieve serial
 					serial = data["Serial Number"];
 					document.getElementById("serial_output").innerHTML = serial;
-		
+
 					// Retrieve asset
 					asset = data["Asset Number"];
 					document.getElementById("asset_output").innerHTML = asset;
-	
+
 					// Retrieve ip address
 					ip = data["IP Address"];
 					document.getElementById("ip_output").innerHTML = ip;
@@ -50,18 +53,13 @@ function get_machine_data() {
 					// Retrieve firmware
 					firmware = data["Firmware Version"];
 					document.getElementById("firmware_output").innerHTML = firmware;
-				
+
 					// Retrieve location
 					loc = data["Location"];
 					document.getElementById("loc_output").innerHTML = loc;
-				})
 
-			fetch(url + "/machines/" + ipaddr + "/Shipped.json")
-				.then(function (response) {
-					return response.json();
-				})
-				.then(function (data) {
-					shipped = data;
+					// Retrieve Shipped data
+					shipped = data["Shipped"];
 
 					if (shipped == null) {
 						console.log("shipped is empty");
@@ -102,14 +100,16 @@ function get_machine_data() {
 					document.getElementById("scan_output").innerHTML = scan;
 
 					fetch(url + "/scans/" + ipaddr + ".json")
+						// This used to work, but no longer does
 						//fetch(url + "/scans/" + ipaddr + ".json" + encodeURIComponent('?orderBy="$key"&limitToLast=30'))
 
-						// Correct one
+						// Correct form for pulling only a few of the scans
 						//fetch(url + "/scans/" + ipaddr + ".json" + '?orderBy="$key"&limitToLast=300')
 						.then(function (response) {
 							return response.json();
 						})
 						.then(function (data) {
+							// This runs all plots with all data given
 							toner_plot(data);
 							developer_plot(data);
 							drum_plot(data);
