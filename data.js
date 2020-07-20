@@ -22,79 +22,37 @@ function get_machine_data() {
 			ipaddr = data;
 
 			// Retrieve model
-			fetch(url + "/machines/" + ipaddr + "/Model.json")
+			fetch(url + "/machines/" + ipaddr + ".json")
 				.then(function (response) {
 					return response.json();
 				})
 				.then(function (data) {
-					//console.log(JSON.stringify(data));
-					model = data;
+					// Retrieve model
+					model = data["Model"];
 					document.getElementById("model_output").innerHTML = model;
-				})
-
-			// Retrieve serial
-			fetch(url + "/machines/" + ipaddr + "/Serial%20Number.json")
-				.then(function (response) {
-					return response.json();
-				})
-				.then(function (data) {
-					//console.log(JSON.stringify(data));
-					serial = data;
+				
+					// Retrieve serial
+					serial = data["Serial Number"];
 					document.getElementById("serial_output").innerHTML = serial;
-				})
-
-			// Retrieve asset
-			fetch(url + "/machines/" + ipaddr + "/Asset%20Number.json")
-				.then(function (response) {
-					return response.json();
-				})
-				.then(function (data) {
-					//console.log(JSON.stringify(data));
-					asset = data;
+		
+					// Retrieve asset
+					asset = data["Asset Number"];
 					document.getElementById("asset_output").innerHTML = asset;
-				})
-
-			// Retrieve ip address
-			fetch(url + "/machines/" + ipaddr + "/IP%20Address.json")
-				.then(function (response) {
-					return response.json();
-				})
-				.then(function (data) {
-					//console.log(JSON.stringify(data));
-					ip = data;
+	
+					// Retrieve ip address
+					ip = data["IP Address"];
 					document.getElementById("ip_output").innerHTML = ip;
-				})
 
-			// Retrieve mac address
-			fetch(url + "/machines/" + ipaddr + "/Hardware%20Address.json")
-				.then(function (response) {
-					return response.json();
-				})
-				.then(function (data) {
-					//console.log(JSON.stringify(data));
-					mac = data;
+					// Retrieve mac address
+					mac = data["Hardware Address"];
 					document.getElementById("mac_output").innerHTML = mac;
-				})
 
-			// Retrieve firmware
-			fetch(url + "/machines/" + ipaddr + "/Firmware%20Version.json")
-				.then(function (response) {
-					return response.json();
-				})
-				.then(function (data) {
-					//console.log(JSON.stringify(data));
-					firmware = data;
+					// Retrieve firmware
+					firmware = data["Firmware Version"];
 					document.getElementById("firmware_output").innerHTML = firmware;
-				})
-
-			// retrieve location
-			fetch(url + "/machines/" + ipaddr + "/Location.json")
-				.then(function (response) {
-					return response.json();
-				})
-				.then(function (data) {
-					//console.log(JSON.stringify(data));
-					loc = data;
+				
+					// Retrieve location
+					loc = data["Location"];
 					document.getElementById("loc_output").innerHTML = loc;
 				})
 
