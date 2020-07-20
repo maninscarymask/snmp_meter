@@ -96,16 +96,9 @@ function get_machine_data() {
 							document.getElementById("wbc").checked = false;
 						}
 					}
-				})
 
-			// Latest scan
-			fetch(url + "/machines/" + ipaddr + "/Latest%20Scan.json")
-				.then(function (response) {
-					return response.json();
-				})
-				.then(function (data) {
-					//console.log(JSON.stringify(data));
-					scan = data;
+					// Retrieve latest scan
+					scan = data["Latest Scan"];
 					document.getElementById("scan_output").innerHTML = scan;
 
 					fetch(url + "/scans/" + ipaddr + ".json")
