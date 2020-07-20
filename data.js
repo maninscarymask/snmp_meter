@@ -15,7 +15,17 @@ function get_machine_data() {
 	// User input
 	asset = document.getElementById("u_input").value;
 
-	// Retrieve ipaddr
+	// Retrieve ipaddr (identifier)
+	//
+	// The way I've found it can work efficiently is to have a section which maps
+	// equipment IDs to their IP address, only using hyphens (i.e. "xxx-xxx-xxx-xxx"), since
+	// Firebase doesn't like "." in names.  This allows the ipaddr identifier to be used in
+	// other locations and keep ambiguity to a minimum.
+	//
+	// The main reason is when the scan is happening, you don't know what the "Asset Number"
+	// actually is at the start, as the machines are scanned by IP and the asset number is
+	// written after the fact, so the only readily available identifier is the IP Address.
+	//
 	fetch(url + "/asset/" + asset + ".json")
 		.then(function (response) {
 			return response.json();
@@ -99,6 +109,7 @@ function get_machine_data() {
 					scan = data["Latest Scan"];
 					document.getElementById("scan_output").innerHTML = scan;
 
+					// Data for graphs
 					fetch(url + "/scans/" + ipaddr + ".json")
 						// This used to work, but no longer does
 						//fetch(url + "/scans/" + ipaddr + ".json" + encodeURIComponent('?orderBy="$key"&limitToLast=30'))
@@ -109,7 +120,7 @@ function get_machine_data() {
 							return response.json();
 						})
 						.then(function (data) {
-							// This runs all plots with all data given
+							// This runs all plots with all data retrieved
 							toner_plot(data);
 							developer_plot(data);
 							drum_plot(data);
@@ -122,6 +133,9 @@ function get_machine_data() {
 								elements.push(date);
 							}
 
+							// /* You are not expected to understand this. */
+							//
+							// Setting up variables in order to have the dates shown for toner out/replaced
 							var el_length = elements.length;
 
 							// Black Toner Near End date
@@ -294,77 +308,50 @@ function get_machine_data() {
 							}
 						})
 
-					// Total count
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Total%20Count.json")
+					// Retrieve all current supply data
+					fetch(url + "/scans/" + ipaddr + "/" + scan + ".json")
 						.then(function (response) {
 							return response.json();
 						})
 						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							count = thousands_separator(data);
+							// Total count
+							count = thousands_separator(data["Total Count"]);
 							document.getElementById("total_count").innerHTML = count;
 							if (count == null) {
 								document.getElementById("total_count").innerHTML = count;
 							}
-						})
 
-					// Color total
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Full%20Color%20Total%20Count.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							color_total = thousands_separator(data);
+							// Color total
+							color_total = thousands_separator(data["Full Color Total Count"]);
 							document.getElementById("color_total").innerHTML = color_total;
-
 							if (color_total == null) {
 								document.getElementById("color_total").innerHTML = color_total;
 							}
-						})
 
-					// Black and white total
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Black%20%26%20White%20Total%20Count.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							black_total = thousands_separator(data);
+							// Black and white total
+							black_total = thousands_separator(data["Black & White Total Count"]);
 							document.getElementById("black_total").innerHTML = black_total;
-						})
 
-					// Black Toner
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Black%20Toner.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							black_toner = data;
+							// Black Toner
+							black_toner = data["Black Toner"];
 							if (black_toner == "-3") {
 								black_toner = "Near End";
 								document.getElementById("black_bar").setAttribute("style", "width: 99.75%; background-color: red; color: white;");
 							} else {
 								document.getElementById("black_bar").setAttribute("style", "color: white; width:" + black_toner + "%");
 							}
+							// This is for the numerical display
 							document.getElementById("black_toner").innerHTML = black_toner;
-						})
 
-					// Cyan Toner
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Cyan%20Toner.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							cyan_toner = data;
+							// Cyan Toner
+							cyan_toner = data["Cyan Toner"];
 							if (cyan_toner == "-3") {
 								cyan_toner = "Near End";
 								document.getElementById("cyan_bar").setAttribute("style", "width: 99.75%; background-color: red; color: white;");
 							} else {
 								document.getElementById("cyan_bar").setAttribute("style", "width:" + cyan_toner + "%");
 							}
+							// This is for the numerical display
 							document.getElementById("cyan_toner").innerHTML = cyan_toner;
 
 							// if machine is mono
@@ -374,22 +361,16 @@ function get_machine_data() {
 							if (cyan_toner == null && black_toner == "Near End") {
 								document.getElementById("cyan_bar").setAttribute("style", "height: 0px; border: 0px; color: red;");
 							}
-						})
 
-					// Magenta toner
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Magenta%20Toner.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							magenta_toner = data;
+							// Magenta toner
+							magenta_toner = data["Magenta Toner"];
 							if (magenta_toner == "-3") {
 								magenta_toner = "Near End";
 								document.getElementById("magenta_bar").setAttribute("style", "width: 99.75%; background-color: red; color: white;");
 							} else {
 								document.getElementById("magenta_bar").setAttribute("style", "width:" + magenta_toner + "%");
 							}
+							// This is for the numerical display
 							document.getElementById("magenta_toner").innerHTML = magenta_toner;
 
 							if (magenta_toner == null) {
@@ -398,16 +379,9 @@ function get_machine_data() {
 							if (magenta_toner == null && black_toner == "Near End") {
 								document.getElementById("magenta_bar").setAttribute("style", "height: 0px; border: 0px; color: red;");
 							}
-						})
 
-					// Yellow toner
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Yellow%20Toner.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							yellow_toner = data;
+							// Yellow toner
+							yellow_toner = data["Yellow Toner"];
 							if (yellow_toner == "-3") {
 								yellow_toner = "Near End";
 								document.getElementById("yellow_bar").setAttribute("style", "width: 99.75%; background-color: red; color: white;");
@@ -423,54 +397,34 @@ function get_machine_data() {
 							if (yellow_toner == null && black_toner == "Near End") {
 								document.getElementById("yellow_bar").setAttribute("style", "height: 0px; border: 0px; color: red;");
 							}
-						})
 
-					// Waste toner
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Waste%20Toner.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							waste = data;
-							document.getElementById("waste_toner").innerHTML = waste;
+							// Waste toner
+							waste = data["Waste Toner"];
+							//document.getElementById("waste_toner").innerHTML = waste;
 							document.getElementById("waste_bar").setAttribute("style", "width: 99.75%;");
 							if (waste == null) {
 								document.getElementById("waste_bar").setAttribute("style", "height: 0px; border: 0px; color: #dddddd;");
 							}
-						})
 
-					// Fusing unit
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Fusing%20Unit.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							fusing_unit = data;
+							// Fusing unit
+							fusing_unit = data["Fusing Unit"];
 							if (fusing_unit == "-2") {
 								fusing_unit = "No data";
 								document.getElementById("fusing_unit_bar").setAttribute("style", "width: 99.75%;");
 							}
-							document.getElementById("fusing_unit").innerHTML = fusing_unit;
+							//document.getElementById("fusing_unit").innerHTML = fusing_unit;
 							if (fusing_unit == null) {
 								document.getElementById("fusing_unit_bar").setAttribute("style", "height: 0px; border: 0px; color: #dddddd;");
 							}
-						})
 
-					// Black Developer
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Black%20Developer.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							black_dev = data;
+							// Black Developer
+							black_dev = data["Black Developer"];
 							if (black_dev == "-3") {
 								black_dev = "Near End";
 								document.getElementById("black_dev").innerHTML = black_dev;
 								document.getElementById("black_dev_bar").setAttribute("style", "width: 99.75%");
 							}
+							// This is for the numerical display
 							document.getElementById("black_dev").innerHTML = black_dev;
 
 							if (black_dev == null) {
@@ -478,21 +432,15 @@ function get_machine_data() {
 							} else {
 								document.getElementById("black_dev_bar").setAttribute("style", "color: white; width:" + black_dev + "%");
 							}
-						})
 
-					// Cyan Developer
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Cyan%20Developer.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							cyan_dev = data;
+							// Cyan Developer
+							cyan_dev = data["Cyan Developer"];
 							if (cyan_dev == "-3") {
 								cyan_dev = "Near End";
 								document.getElementById("cyan_dev").innerHTML = cyan_dev;
 								document.getElementById("cyan_dev_bar").setAttribute("style", "width: 99.75%");
 							}
+							// This is for the numerical display
 							document.getElementById("cyan_dev").innerHTML = cyan_dev;
 
 							if (cyan_dev == null) {
@@ -501,21 +449,15 @@ function get_machine_data() {
 							} else {
 								document.getElementById("cyan_dev_bar").setAttribute("style", "color: black; width:" + cyan_dev + "%");
 							}
-						})
 
-					// Magenta Developer
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Magenta%20Developer.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							magenta_dev = data;
+							// Magenta Developer
+							magenta_dev = data["Magenta Developer"];
 							if (magenta_dev == "-3") {
 								magenta_dev = "Near End";
 								document.getElementById("magenta_dev").innerHTML = magenta_dev;
 								document.getElementById("magenta_dev_bar").setAttribute("style", "width: 99.75%");
 							}
+							// This is for the numerical display
 							document.getElementById("magenta_dev").innerHTML = magenta_dev;
 
 							if (magenta_dev == null) {
@@ -523,21 +465,15 @@ function get_machine_data() {
 							} else {
 								document.getElementById("magenta_dev_bar").setAttribute("style", "color: black; width:" + magenta_dev + "%");
 							}
-						})
 
-					// Yellow Developer
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Yellow%20Developer.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							yellow_dev = data;
+							// Yellow Developer
+							yellow_dev = data["Yellow Developer"];
 							if (yellow_dev == "-3") {
 								yellow_dev = "Near End";
 								document.getElementById("yellow_dev").innerHTML = yellow_dev;
 								document.getElementById("yellow_dev_bar").setAttribute("style", "width: 99.75%");
 							}
+							// This is for the numerical display
 							document.getElementById("yellow_dev").innerHTML = yellow_dev;
 
 							if (yellow_dev == null) {
@@ -545,21 +481,16 @@ function get_machine_data() {
 							} else {
 								document.getElementById("yellow_dev_bar").setAttribute("style", "color: black; width:" + yellow_dev + "%");
 							}
-						})
 
-					// Black Drum
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Black%20Drum.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							black_drum = data;
+
+							// Black Drum
+							black_drum = data["Black Drum"];
 							if (black_drum == "-3") {
 								black_drum = "Near End";
 								document.getElementById("black_drum").innerHTML = black_drum;
 								document.getElementById("black_drum_bar").setAttribute("style", "width: 99.75%");
 							}
+							// This is for the numerical display
 							document.getElementById("black_drum").innerHTML = black_drum;
 
 							if (black_drum == null) {
@@ -567,16 +498,9 @@ function get_machine_data() {
 							} else {
 								document.getElementById("black_drum_bar").setAttribute("style", "color: white; width:" + black_drum + "%");
 							}
-						})
 
-					// Cyan Drum
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Cyan%20Drum.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							cyan_drum = data;
+							// Cyan Drum
+							cyan_drum = data["Cyan Drum"];
 							if (cyan_drum == "-3") {
 								cyan_drum = "Near End";
 								document.getElementById("cyan_drum").innerHTML = cyan_drum;
@@ -592,16 +516,9 @@ function get_machine_data() {
 							} else {
 								document.getElementById("cyan_drum_bar").setAttribute("style", "color: black; width:" + cyan_drum + "%");
 							}
-						})
 
-					// Magenta Drum
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Magenta%20Drum.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							magenta_drum = data;
+							// Magenta Drum
+							magenta_drum = data["Magenta Drum"];
 							if (magenta_drum == "-3") {
 								magenta_drum = "Near End";
 								document.getElementById("magenta_drum").innerHTML = magenta_drum;
@@ -614,16 +531,9 @@ function get_machine_data() {
 							} else {
 								document.getElementById("magenta_drum_bar").setAttribute("style", "color: black; width:" + magenta_drum + "%");
 							}
-						})
 
-					// Yellow Drum
-					fetch(url + "/scans/" + ipaddr + "/" + scan + "/Yellow%20Drum.json")
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (data) {
-							//console.log(JSON.stringify(data));
-							yellow_drum = data;
+							// Yellow Drum
+							yellow_drum = data["Yellow Drum"];
 							if (yellow_drum == "-3") {
 								yellow_drum = "Near End";
 								document.getElementById("yellow_drum").innerHTML = yellow_drum;
