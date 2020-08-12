@@ -12,8 +12,24 @@ function thousands_separator(num) {
 
 // Main function that pulls all data and displays it
 function get_machine_data() {
-	// User input
+	// Manual user input
+	// (need to remove get_machine_data() from after the block for this to work)
 	asset = document.getElementById("u_input").value;
+	
+	// Automatic User Input (requires get_machine_data() to be run at the end of the block)
+	//
+	//var urlParams = new URLSearchParams(window.location.search);
+	//if (document.getElementById("u_input").value == "" && urlParams.has('asset') == true) {
+	//	asset = urlParams.get('asset');
+	//	console.log("urlParams.get('asset'): " + asset);
+	//} else {
+	//	urlParams.delete('asset');
+	//	asset = document.getElementById("u_input").value;
+	//	console.log("u_input: " + asset);
+	//}
+	//if (urlParams.has('asset') == true) {
+	//	asset = urlParams.get('asset');
+	//}
 
 	// Retrieve ipaddr (identifier)
 	//
@@ -552,8 +568,15 @@ function get_machine_data() {
 		})
 }
 
-var linewidth = 3;
+// This is necessary when using "Automatic User Input, otherwise the page will not populate
+//get_machine_data();
 
+// Plot element variables
+var linewidth = 3;
+var mode = "lines";
+var gaps = true;
+
+// Toner usage graph
 function toner_plot(data) {
 	var key_array = Object.keys(data);
 
@@ -573,59 +596,49 @@ function toner_plot(data) {
 		toner_k.push(data[key_array[i]]["Black Toner"]);
 	}
 
-	//console.log(toner_c);
-	//console.log(toner_m);
-	//console.log(toner_y);
-	//console.log(toner_k);
-	//console.log(dates);
-
 	var plot_c = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: toner_c,
 		name: "Cyan Toner",
 		line: {
-			//shape: "spline",
 			color: "#0066CC",
 			width: linewidth
 		}
 	};
 
 	var plot_m = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: toner_m,
 		name: "Magenta Toner",
 		line: {
-			//shape: "spline",
 			color: "#FF3366",
 			width: linewidth
 		}
 	};
 
 	var plot_y = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: toner_y,
 		name: "Yellow Toner",
 		line: {
-			//shape: "spline",
 			color: "#FFFF00",
 			width: linewidth
 		}
 	};
 
 	var plot_k = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: toner_k,
 		name: "Black Toner",
 		line: {
-			//shape: "spline",
 			color: "#333333",
 			width: linewidth
 		}
@@ -653,7 +666,7 @@ function toner_plot(data) {
 		},
 		yaxis: {
 			fixedrange: true,
-			// we want the -3 or 100 to stay on the plot and not get trimmed at the bounds
+			// we want the -3 or 100 to stay on the plot and not get trimmed at the bounds, so pad by 4
 			range: [-7, 104]
 		},
 		showlegend: false
@@ -665,6 +678,7 @@ function toner_plot(data) {
 	});
 }
 
+// Developer usage graph
 function developer_plot(data) {
 	var key_array = Object.keys(data);
 
@@ -681,59 +695,49 @@ function developer_plot(data) {
 		dev_k.push(data[key_array[i]]["Black Developer"]);
 	}
 
-	//console.log(dev_c);
-	//console.log(dev_m);
-	//console.log(dev_y);
-	//console.log(dev_k);
-	//console.log(dates);
-
 	var plot_c = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: dev_c,
 		name: "Cyan Developer",
 		line: {
-			//shape: "spline",
 			color: "#0066CC",
 			width: linewidth
 		}
 	};
 
 	var plot_m = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: dev_m,
 		name: "Magenta Developer",
 		line: {
-			//shape: "spline",
 			color: "#FF3366",
 			width: linewidth
 		}
 	};
 
 	var plot_y = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: dev_y,
 		name: "Yellow Developer",
 		line: {
-			//shape: "spline",
 			color: "#FFFF00",
 			width: linewidth
 		}
 	};
 
 	var plot_k = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: dev_k,
 		name: "Black Developer",
 		line: {
-			//shape: "spline",
 			color: "#333333",
 			width: linewidth
 		}
@@ -761,7 +765,7 @@ function developer_plot(data) {
 		},
 		yaxis: {
 			fixedrange: true,
-			// we want the -3 or 100 to stay on the plot and not get trimmed at the bounds
+			// we want the -3 or 100 to stay on the plot and not get trimmed at the bounds, so pad by 4
 			range: [-7, 104]
 		},
 		showlegend: false
@@ -772,6 +776,7 @@ function developer_plot(data) {
 	});
 }
 
+// Drum usage graph
 function drum_plot(data) {
 	var key_array = Object.keys(data);
 
@@ -788,59 +793,49 @@ function drum_plot(data) {
 		drum_k.push(data[key_array[i]]["Black Drum"]);
 	}
 
-	//console.log(drum_c);
-	//console.log(drum_m);
-	//console.log(drum_y);
-	//console.log(drum_k);
-	//console.log(dates);
-
 	var plot_c = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: drum_c,
 		name: "Cyan Drum",
 		line: {
-			//shape: "spline",
 			color: "#0066CC",
 			width: linewidth
 		}
 	};
 
 	var plot_m = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: drum_m,
 		name: "Magenta Drum",
 		line: {
-			//shape: "spline",
 			color: "#FF3366",
 			width: linewidth
 		}
 	};
 
 	var plot_y = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: drum_y,
 		name: "Yellow Drum",
 		line: {
-			//shape: "spline",
 			color: "#FFFF00",
 			width: linewidth
 		}
 	};
 
 	var plot_k = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: drum_k,
 		name: "Black Drum",
 		line: {
-			//shape: "spline",
 			color: "#333333",
 			width: linewidth
 		}
@@ -868,7 +863,7 @@ function drum_plot(data) {
 		},
 		yaxis: {
 			fixedrange: true,
-			// we want the -3 or 100 to stay on the plot and not get trimmed at the bounds
+			// we want the -3 or 100 to stay on the plot and not get trimmed at the bounds, so pad by 4
 			range: [-7, 104]
 		},
 		showlegend: false
@@ -879,6 +874,7 @@ function drum_plot(data) {
 	});
 }
 
+// Waste Container and Fuser usage graph
 function maint_plot(data) {
 	var key_array = Object.keys(data);
 
@@ -891,31 +887,25 @@ function maint_plot(data) {
 		fusing_unit.push(data[key_array[i]]["Fusing Unit"]);
 	}
 
-	//console.log(waste_toner);
-	//console.log(fusing_unit);
-	//console.log(dates);
-
 	var plot_w = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: waste_toner,
 		name: "Waste Toner",
 		line: {
-			//shape: "spline",
 			color: "#999999",
 			width: linewidth
 		}
 	};
 
 	var plot_f = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: fusing_unit,
 		name: "Fusing Unit",
 		line: {
-			//shape: "spline",
 			color: "#FF8800",
 			width: linewidth
 		}
@@ -943,7 +933,7 @@ function maint_plot(data) {
 		},
 		yaxis: {
 			fixedrange: true,
-			// we want the -3 or 100 to stay on the plot and not get trimmed at the bounds
+			// we want the -3 or 100 to stay on the plot and not get trimmed at the bounds, so pad by 4
 			range: [-7, 104]
 		},
 		showlegend: false
@@ -954,6 +944,7 @@ function maint_plot(data) {
 	});
 }
 
+// Page count totals graph
 function total_plot(data) {
 	var key_array = Object.keys(data);
 
@@ -972,22 +963,19 @@ function total_plot(data) {
 	}
 
 	var plot_totalc = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: totalc,
-		//fill: 'tozeroy',
-		//stackgroup: 'one',
 		name: "Total Count",
 		line: {
-			//shape: "spline",
 			color: "#00FF00",
 			width: 1
 		}
 	};
 
 	var plot_mono = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: mono,
@@ -995,14 +983,13 @@ function total_plot(data) {
 		stackgroup: 'one',
 		name: "Black & White",
 		line: {
-			//shape: "spline",
 			color: "#000000",
 			width: 1
 		}
 	};
 
 	var plot_color = {
-		mode: "lines",
+		mode: mode,
 		connectgaps: true,
 		x: dates,
 		y: color,
@@ -1010,7 +997,6 @@ function total_plot(data) {
 		stackgroup: 'one',
 		name: "Full Color",
 		line: {
-			//shape: "spline",
 			color: "#0000FF",
 			width: 1
 		}
@@ -1034,16 +1020,13 @@ function total_plot(data) {
 			t: 50
 		},
 		xaxis: {
-			fixedrange: false //,
-			//			automargin: true
+			fixedrange: false
 		},
 		yaxis: {
 			rangemode: 'tozero',
 			tickmode: 'array',
 			autorange: true,
 			fill: 'tozeroy',
-			//			automargin: true,
-			//type: 'log'
 		},
 		showlegend: false
 	};
@@ -1054,45 +1037,37 @@ function total_plot(data) {
 	});
 }
 
+// Updates Firebase to the existence of toners that haven't
+// been used, or spikes in % where a toner was replaced.
 function updatedb() {
 	if (document.getElementById("tkc").checked == true) {
 		black = 1;
-		//document.getElementById("tk_d").innerHTML = tk_d;
 	} else {
 		black = 0;
-		//tk_d = "";
 	}
 
 	if (document.getElementById("tcc").checked == true) {
 		cyan = 1;
-		//document.getElementById("tc_d").innerHTML = tc_d;
 	} else {
 		cyan = 0;
-		//tc_d = "";
 	}
 
 	if (document.getElementById("tmc").checked == true) {
 		magenta = 1;
-		//document.getElementById("tm_d").innerHTML = tm_d;
 	} else {
 		magenta = 0;
-		//tm_d = "";
 	}
 
 	if (document.getElementById("tyc").checked == true) {
 		yellow = 1;
-		//document.getElementById("ty_d").innerHTML = ty_d;
 	} else {
 		yellow = 0;
-		//ty_d = "";
 	}
 
 	if (document.getElementById("wbc").checked == true) {
 		waste = 1;
-		//document.getElementById("wb_d").innerHTML = wb_d;
 	} else {
 		waste = 0;
-		//wb_d = "";
 	}
 
 	var data = {
@@ -1101,12 +1076,6 @@ function updatedb() {
 		"Magenta": magenta,
 		"Yellow": yellow,
 		"Waste": waste
-		/* ,
-				"tk_d": tk_d,
-				"tc_d": tc_d,
-				"tm_d": tm_d,
-				"ty_d": ty_d,
-				"wb_d": wb_d */
 	};
 
 	fetch(url + "/machines/" + ipaddr + "/Shipped.json", {
@@ -1120,10 +1089,5 @@ function updatedb() {
 		.then(function (data) {
 			test = data;
 			console.log(test);
-			/* console.log("Black: " + black + " replaced on " + tk_d);
-			console.log("Cyan: " + cyan + " replaced on " + tc_d);
-			console.log("Magenta: " + magenta + " replaced on " + tm_d);
-			console.log("Yellow: " + yellow + " replaced on " + ty_d);
-			console.log("Waste: " + waste + " replaced on " + wb_d); */
 		});
 }
