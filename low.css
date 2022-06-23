@@ -1,0 +1,107 @@
+body {
+	/*background-color: #dddddd;*/
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+
+div {
+	padding: 5px;
+}
+
+div#machines {
+	overflow: hidden;
+}
+
+/* Red */
+a:link {
+	background-color: #f44336;
+	color: white;
+	padding: 3px 5px;
+	text-align: center;
+	text-decoration: none;
+	font-family: monospace;
+	display: inline-block;
+	line-height: 14px;
+}
+
+/* Green */
+a:visited{
+	background-color: #66dd66;
+	color: black;
+	padding: 3px 5px;
+	text-align: center;
+	text-decoration: none;
+	font-family: monospace;
+	display: inline-block;
+	line-height: 14px;
+}
+
+a:hover, a:active {
+	background-color: gray;
+	color: black;
+	font-family: monospace;
+}
+
+div.floater {
+	float: left;
+	background-color: #dddddd;
+	margin-left: 5px;
+	margin-top: 5px;
+	height: 75px;
+	width: 75px;
+}
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+	top: -5px;
+	left: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+}
+
+.flex-container {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	
+	/*-webkit-flex-flow: row wrap;*/
+	justify-content: space-around;
+  }
+  
+  .flex-item {
+	background: tomato;
+	padding: 5px;
+	width: 200px;
+	height: 150px;
+	margin-top: 10px;
+  
+	line-height: 150px;
+	color: white;
+	font-weight: bold;
+	font-size: 3em;
+	text-align: center;
+  }

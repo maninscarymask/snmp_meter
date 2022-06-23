@@ -1,0 +1,43 @@
+/*html>body thead tr {
+	display: block;
+	position: relative;
+}*/
+
+th {
+	border: 1px ridge #eeeeee;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+
+/* adds lines between td */
+/* tr,
+td {
+	border: 1px ridge #aaaaaa;
+} */
+
+table,
+th {
+	border-width: 1px;
+	border-style: solid;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+thead {
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+section {
+	display: block;
+	padding: 5px;
+}
