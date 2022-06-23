@@ -52,3 +52,16 @@ In order to get this to work for you, you need to change the Powershell to point
 For the UI component, change "Company Name" and the Firebase DB link in data.js.  Change the displayed "Company Name" in the index.html file as well.
 
 Once the Powershell script has created the appropriate nodes on the Firebase DB, the UI should be able to pull the data and display it.
+
+## Aggregation
+
+<img src="meter.png" width=450px>
+
+This page, utilizing similar JS, shows all machines and their respective toner/developer/drum values and all other machine data so it can be sorted as an overview of the entire fleet.  Varying colors denotes machines who are low, very low or out.  The ID numbers are linked on the left in order to open up a contextual page just about that machine, allowing for the above-mentioned historical data.
+
+## Just Low
+
+<img src="low.png" width=450px>
+
+
+This page will only show the low supplies, organized by type.  It has a section for toners, drums, developers, as well as waste-toner containers and even a section for "completely out" supplies.  These would be considered priority.
