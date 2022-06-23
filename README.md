@@ -61,7 +61,7 @@ This page, utilizing similar JS, shows all machines and their respective toner/d
 
 ## Just Low
 
-<img src="low.png" width=450px>
+<img src="low.png" height=450px>
 
 
 This page will only show the low supplies, organized by type.  It has a section for toners, drums, developers, as well as waste-toner containers and even a section for "completely out" supplies.  These would be considered priority.
